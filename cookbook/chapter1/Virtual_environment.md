@@ -1,6 +1,6 @@
 ## 准备工作
 请确保项目是在虚拟环境中运行。
-这里使用的是virtualenv来创建python虚拟环境
+这里使用的是virtualenv来创建python虚拟环境  
 如果你会使用和创建虚拟环境，可以跳过本节内容。
 ### 安装virtualenv  
 如果安装了virtualenv可以跳过。  

@@ -1,28 +1,3 @@
-## 安装Django2.1
-请确保在虚拟环境中进行以下的操作。  
-`pip install django==2.1`  
-安装完成后把终端的操作路径切换到你想创建项目的地方。  
-如果是之前看了**创建和使用虚拟环境**  
-就在work_space目录下创建。  
-## 创建Django项目
-`django-admin startproject mysite`  
-上面的mysite是项目名称，你也可以换成你喜欢的名字。   
-`cd mysite && ls`进入项目并查看我们的项目内容  
-发现里面只有一个名为mysite的目录和一个名为manage.py的文件。  
-网上很多教程都是说在终端输入`python manage.py runserver`  
-把项目运行起来，看到一个Debug页面，然后创建应用什么的，然后在页面打印个**hello world**。  
-之前我就是看这些教程，把我的思维搞混乱了。  
-所以现在我不打算讲这些内容，直接去做一个博客。  
-这系列教程就不讲这些基础，这些基础在下一章节搭建一个最简单博客结合项目再进行讲解。  
-接下来进行的操作很重要，这是项目的最基础配置。后面的教程都会用到。  
-## 项目的基础配置  
-如无意外，你跟着上面的操作，你现在终端操作路径是在项目的根目录下。  
-项目的根目录就是有**manage.py**的目录下。  
-先跟着下面的操作，到最后会有个树结构进行项目内容讲解。  
-`mkdir apps templates static`  
-使用编辑器打开mysite中的settings.py。  
-根据下方内容给出的提示，进行添加必要的内容。  
-```python
 """
 Django settings for mysite project.
 
@@ -166,17 +141,3 @@ USE_TZ = False          #关闭国际时间
 STATIC_URL = '/static/'
 # 静态文件配置路径  有修改  后期部署环节需要删掉
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),]
-```
-## 项目文件讲解
-```tree
-├── apps             # 该目录存放后期创建的目录
-├── manage.py        # 用于启动、检查、创建应用等一系列操作的文件，后面会进行讲解
-├── mysite           # 存放项目的主要配置的目录
-│   ├── __init__.py  # 声明mysite目录是一个python包，使用mysql数据库会用到
-│   ├── settings.py  # 项目设置配置
-│   ├── urls.py      # 路由器，分发网址后缀等配置
-│   └── wsgi.py      # 规范接口文件，部署到服务器会用到
-├── static           # 静态文件目录
-└── templates        # 模板文件目录
-```
-下一章节，可以看到怎么搭建一个最最基本的博客，也就是一开始让大家体验的一个小项目。  
