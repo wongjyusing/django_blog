@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>博客列表</title>
+    <link rel="stylesheet" href="/static/css/base.css">
+    <link rel="stylesheet" href="/static/css/blog.css">
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+    <script type="application/javascript" src="/static/js/jquery.min.js"></script>
+    <script type="application/javascript" src="/static/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <header class="site-header">
+        <div class="site-branding">
+            <h1 class="site-title"><a href="{% url 'blog_list' %}">花若盛開 蝴蝶自來</a></h1>
+            <div class="site-introduction">这是我用Django2.0和bootstrap搭建的博客</div>
+        </div>
+        <nav class="navbar-default site-navigation" role="navigation">
+            <div class="container-fluid" >
+                <div class="navbar-header" >
+                    <button type="button" class="navbar-toggle"  data-toggle="collapse" data-target="#navbar-collapse"><span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+            <div id="navbar-collapse" class="collapse navbar-collapse">
+                <ul class="menu">
+                    <li class="nav-active"><a href="{% url 'blog_list' %}">博客列表</a></li>{# 这里有不同 #}
+                </ul>
+            </div>
+            </div>
+         </nav>
+    </header>
+    <div class="container"><!--容器-->
+        <div class="row"><!--列-->
+            <div class="col-xs-12 col-md-10"><!--文章列表-->
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title" style="text-align: center;font-size: 40px">文章列表</h3>
+                    </div>
+                    <div class="panel-body">
+                        {% for each in blogs %}
+                            <div class="blog">
+                                <h3><a href="{% url 'detail' each.slug %}">{{ each.title }}</a></h3>
+                                <p class="blog-info">
+                                    <span class="glyphicon glyphicon-time"></span> {{ each.created_time|date:"Y-m-d" }}&nbsp;&nbsp;
+                                </p>
+                                <p>{{ each.body_markdown|safe|truncatechars:120}}</p>
+                                <hr>
+                            </div>
+                        {% empty %}
+                            <div class="blog">
+                                <h3>暂无博客，敬请期待</h3>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div><!--./col-md-10-->
+            <div class="hidden-xs col-md-2"><!--文章分类-->
+                <p>留空，占位</p>
+            </div><!--col-md-2-->
+        </div><!--row-->
+    </div><!--container-->
+</body>
+</html>

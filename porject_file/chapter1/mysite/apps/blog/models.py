@@ -27,7 +27,7 @@ models.SlugField 这个字段有点难翻译，由于Django是新闻方面公司
 '''
 
 class Blog(BlogBase):
-    title = models.CharField(verbose_name="标题")
+    title = models.CharField(verbose_name="标题",max_length=50)
     body = models.TextField(verbose_name="内容")
     author = models.CharField(verbose_name="作者",max_length=50,default='sing')
     created_time = models.DateTimeField(auto_now_add=True,verbose_name='创建时间')

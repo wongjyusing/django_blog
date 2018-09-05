@@ -56,15 +56,15 @@ models.CharField 这个字段是用来表示短语字段，必须带有最大长
 models.TextField 这个字段是文本格式，也就是文章
 models.DateTimeField 这个字段是用来获取时间的
 models.SlugField 这个字段有点难翻译，由于Django是新闻方面公司放出来的一个开源项目
-                属于新闻方面的术语。我们平时看新闻，主持人看新闻的播放顺序的就是用slug了
+                属于新闻方面的术语。我们平时看新闻，控制新闻顺序的就是用slug了
                 它是把新闻标题的文章转换为两到四个字或者单词来确定播放顺序的。
                 香港澳门那边好像都是用这种。
                 我们这里把它用作网址的后缀。
-参数方面就不介绍了，看Django文档和复制粘贴翻译就好了
+参数方面就不介绍了，看文档和复制粘贴翻译就好了
 '''
 
 class Blog(BlogBase):
-    title = models.CharField(verbose_name="标题")
+    title = models.CharField(verbose_name="标题",max_length=50)
     body = models.TextField(verbose_name="内容")
     author = models.CharField(verbose_name="作者",max_length=50,default='sing')
     created_time = models.DateTimeField(auto_now_add=True,verbose_name='创建时间')
@@ -95,13 +95,13 @@ from .models import Blog
 # 所有博客列表方法 首页的处理方法
 def blog_list(request):
     context = {}   # 生成一个空字典
-    context['blogs'] = Blog.object.all() # 获取Blog中的所有对象
+    context['blogs'] = Blog.objects.all() # 获取Blog中的所有对象
 
     # request 请求 意思是当我们在浏览器中访问 http://127.0.0.1:8000
     # 就相当于发送了一个请求给Django，当请求成功后
     # django就把context的内容在blog_list.html中渲染并返回给这个请求。
     # blog_list.html在后面环节再创建
-    return render(request,'blog_list.html'context)
+    return render(request,'blog_list.html',context)
 
 # 文章详情页内容的处理方法
 def blog_detail(request,slug): # 接收请求和slug参数
@@ -109,7 +109,7 @@ def blog_detail(request,slug): # 接收请求和slug参数
 
     # 在Blog也就是我们的数据库中寻找有没有slug字段和传进来的slug字段匹配的
     # 没有，则返回404,有则返回该对象的内容
-    context['blog'] = Blog.get_object_or_404(Blog, slug=slug)
+    context['blog'] = get_object_or_404(Blog, slug=slug)
     # blog_detail.html未创建
     return render(request,'blog_detail.html',context)
 ```
@@ -129,4 +129,71 @@ class BlogAdmin(admin.ModelAdmin):
 讲之前先说明一下路由的作用是什么？  
 路由的作用，用来配发地址的。
 我们把网站比作是一个小区，小区中的门牌号就是网站的网址后缀。  
-我们回去自己家，总有个门牌号吧，我们要通过门牌号来区分  
+我们回去自己家，总有个门牌号吧，我们要通过门牌号来区分   
+例如说我的域名是porksuimai.com这是小区  
+而后面的django-1相当于门牌号。  
+门牌号是唯一的，如果出现相同的门牌号，就会出现冲突。  
+### 总路由  
+我们项目的总路由在根目录下的mysite目录中的urls.py文件   
+内容如下注意里面代码的注释：
+```python
+"""mysite URL Configuration
+
+The `urlpatterns` list routes URLs to views. For more information please see:
+    https://docs.djangoproject.com/en/2.1/topics/http/urls/
+Examples:
+Function views
+    1. Add an import:  from my_app import views
+    2. Add a URL to urlpatterns:  path('', views.home, name='home')
+Class-based views
+    1. Add an import:  from other_app.views import Home
+    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
+Including another URLconf
+    1. Import the include() function: from django.urls import include, path
+    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
+"""
+# 从django的核心方法导入管理员方法
+from django.contrib import admin
+# 从django的路由方法导入 路径、包括方法
+from django.urls import path,include
+
+urlpatterns = [
+    # 根路径 从apps中的blog中导入urls.py文件，
+    # 这里的意思就是包括了apps中的blog中urls.py的内容
+    # 如果有多台路由器进行拼接经验的话，不难理解，这里相当与桥接路由器
+    path('',include('apps.blog.urls')),
+    # 下面的这个路径是后台管理路径，后面我们写博文都在这个网址写
+    # http://127.0.0.1:8000/admin
+    path('admin/', admin.site.urls),
+]
+```
+### blog的路由  
+看代码注释吧  
+```python
+# 从django的路由方法导入 路径、正则路径方法
+from django.urls import path,re_path
+# 从当前目录下导入views.py的内容
+from . import views
+
+urlpatterns = [
+    # 下面方法中第一个参数是路径
+    # 总路由也是为空，所以我们的博客列表就是首页
+    # 当我们在浏览器打开 http://127.0.0.1:8000
+    # 就会发送一个请求给django
+    # django就会从路由器中寻找是否有这路径的，没有就会返回404
+    # 有就寻找该路径对应的方法，也就是下面的第二个参数，  
+    # 第三个参数，相当于是变量名，也就是说 blog_list = path('', views.blog_list)
+    # 后面使用模板时会用到，现在知道一下就好了
+    path('', views.blog_list,name='blog_list'),
+
+    # re_path不难理解是正则匹配路径
+    # 大家可以回头看一下views.py中的blog_detail函数
+    # 它除了request参数还有一个slug参数
+    # 解释一下这里的正则表达式吧：
+    # 这是正则表达式匹配路径，/(?P<slug>[\w-]+)/
+    # 以/开头 以/结束  括号()是括起来的的表达式作为一个分组
+    # [\w-]是匹配任意字母数字和减号
+    # (?P<slug>[\w-]+)就是把slug进行分组，匹配里面的[\w-]
+    re_path('detail/(?P<slug>[\w-]+)/', views.blog_detail, name='detail'),
+]
+```  

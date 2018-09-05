@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>{{ blog.title }}</title>
+    </head>
+    <body>
+        <a href="{% url 'blog_list'%}">博客列表</a>
+        {{ blog.body_markdown|safe }}
+
+    </body>
+</html>

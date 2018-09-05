@@ -13,7 +13,7 @@ Django可以开发API接口、网站的管理后台、也可以展示前端页�
 ## 博客
 博客简单来说，就类似于记事本、日记、长篇微博、QQ空间之类的网站。  
 不过，它的后台和前端页面都是我们自己手写的。  
-如果你有打开上面的项目的源码进行浏览，会发现templates目录下的blog_list.html和blog_detail.html里面的代码也就几句话，直接使用浏览器打开的话只是几个**{{xxxx}}**  
-而我们运行项目并打开[http://localhost:8888/django-1](http://localhost:8888/django-1),却可以看到本篇博文。  
+如果你有打开上面的项目的源码进行浏览，会发现templates目录下的blog_list.html和blog_detail.html里面的代码也就几句话，直接使用浏览器打开的话只是几个`{{ xxxx }}`  
+而我们运行项目并打开[http://localhost:8000/django-1](http://localhost:8888/django-1),却可以看到本篇博文。  
 这是为什么呢？？  
 继续浏览后面并动手的话，你就会知道为什么了。  
