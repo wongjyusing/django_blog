@@ -50,5 +50,21 @@ CSS也是一样，`a标签不要下划线、li标签不要点……`
 你们可以打开我提供的模板，页面也就三个部分就搞定了。  
 写完以后，你就有了前端的基础知识了。  
 先不要使用其他例如Vue的框架。他们的语法使用会和python的web框架起冲突。Tornado、Flask我都试过，会出现错误的。  
+关于vue的解决方案有的，如果你会vue.js，也请先了解一下后端方面的知识。  
+后期的话，我也会讲Django和Vue配合搭建博客的教程。   
 初学者可以先利用**Bootstrap**来辅助布局方面的工作，响应式可以在以后学了前端后再添加。  
 大家可以先练习怎么用模板语言配置好模板的页面后，再进行后面的内容。
+## CSS和JS导入
+如下：
+```html
+<link rel="stylesheet" href="/static/css/base.css">
+<link rel="stylesheet" href="/static/css/blog.css">
+<link rel="stylesheet" href="/static/css/bootstrap.min.css">
+<script type="application/javascript" src="/static/js/jquery.min.js"></script>
+<script type="application/javascript" src="/static/js/bootstrap.min.js"></script>
+```
+如果部署上线的话需要修改为下面的这种形式，这也是模板控制语句的。
+```html
+<link rel="stylesheet" href="{% static 'css/blog.css' %}">
+<script type="application/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+```

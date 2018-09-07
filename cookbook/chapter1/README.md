@@ -6,7 +6,7 @@ Django可以开发API接口、网站的管理后台、也可以展示前端页�
 其实讲那么多也都是废话。  
 动手才是最实际的。  
 不过动手前，可以先了解一下到底什么是博客。  
-如果你有python3基础的话，可以把这个最基础的博客。git下来先尝试一下。  
+如果你有python3基础的话，可以把这个[最基础的博客](https://github.com/wongjyusing/django_blog/tree/master/porject_file/chapter1)。git下来先尝试一下。  
 再决定是否继续阅读后面的内容。
 启动方法和安装方法都放到了项目的README.md里面。  
 没有python3基础的话，先去学习变量、函数、字典、包的引用、类继承、for、if后，再阅读本系列教程。  

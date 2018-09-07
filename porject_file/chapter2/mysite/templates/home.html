@@ -1,0 +1,106 @@
+{% load diy_tags %}     {# 导入自定义标签 #}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>首页</title>{# 这里有不同 #}
+    <link rel="stylesheet" href="/static/css/base.css">
+    {% block css_file %}{% endblock %}
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <script type="application/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+    <script type="application/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+</head>
+<body>
+    <header class="site-header">
+        <div class="site-branding">
+            <h1 class="site-title"><a href="{% url 'home' %}">花若盛開 蝴蝶自來</a></h1>
+            <div class="site-introduction">这是我用Django2.0和bootstrap搭建的博客</div>
+        </div>
+        <nav class="navbar-default site-navigation" role="navigation">
+            <div class="container-fluid" >
+                <div class="navbar-header" >
+                    <button type="button" class="navbar-toggle"  data-toggle="collapse" data-target="#navbar-collapse"><span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+            <div id="navbar-collapse" class="collapse navbar-collapse">
+                <ul class="menu">
+                    <li><a href="{% url 'home' %}">首页</a></li>{# 这里有不同 #}
+                    <li><a href="{% url 'blog_list' %}">博客列表</a></li>{# 这里有不同 #}
+                    <li><a href="#">文档</a></li>
+                    <li><a href="#">关于</a></li>
+                </ul>
+            </div>
+            </div>
+         </nav>
+    </header>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-9">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title" style="text-align: center;font-size: 40px">{{ blog.title }}</h3>
+                    </div>
+                    <div class="panel-body">
+                      <p class="detail-nav">阅读数：{% get_read_detail request blog %}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;创建时间：{{ blog.created_time }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;作者：{{ blog.author }}&nbsp;&nbsp;&nbsp;标签：{% for i in blog.blog_tag.values %}
+                          <a href="{% url 'blog_tag' i.slug %}">{{ i.name }}</a>&nbsp;
+                          {% endfor %}</p>
+
+                        {{ blog.body_markdown|safe }}
+                    </div>
+                </div>
+            </div>
+            <div class="hidden-xs col-sm-3">
+              <div class="diy-toc">
+                  {{ blog.toc|safe }}
+              </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="diy-card">
+          <p>Copyright © 2018 Sing. Powered by Django.</p>
+          <p>粤ICP备18079962号</p>
+        </div>
+    </footer>
+</body>
+</html>
+
+
+
+<!DOCTYPE html>
+{% load diy_tags %}   {# 导入我们的自定义模板标签 #}
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>首页</title>
+    </head>
+    <body>
+        <div class="site-me-widget-first">
+            <h4 class="title">标签</h4>
+            <hr>
+            <div class="content community">
+                {% get_blog_tag_list as tag_list %}  {# 把函数实例化为变量名 #}
+                {% for tag in tag_list %}     {# 通过for循环遍历出内容 #}
+                    <li class="blog-type-tag"><a target="_blank" href="{% url 'blog_tag' tag.slug %}">{{ tag.name }}</a></li>
+                {% empty %}   {# 这个empty是说，假如没有标签的话，显示下面p标签的内容 #}
+                    <p>暂无标签 敬请期待</p>
+                {% endfor %}
+            </div>
+            <div class="content community">
+                {% get_blog_type_list as type_list %}  {# 把函数实例化为变量名 #}
+                {% for type in type_list %}     {# 通过for循环遍历出内容 #}
+                    <li class="blog-type-tag"><a target="_blank" href="{% url 'blog_type' type.slug %}">{{ type.name }}</a></li>
+                {% empty %}   {# 这个empty是说，假如没有标签的话，显示下面p标签的内容 #}
+                    <p>暂无分类 敬请期待</p>
+                {% endfor %}
+            </div>
+        </div>
+    </body>
+</html>
