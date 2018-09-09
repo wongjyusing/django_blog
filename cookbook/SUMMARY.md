@@ -11,3 +11,4 @@
 * [自定义模板标签](chapter5/diy_tags.md)
 * [模板拓展方法](chapter6/templates_ex.md)
 * [写博客项目的技巧](chapter7/skii.md)
+* [通用工具](chapter8/tool.md)
