@@ -125,8 +125,8 @@ img_link和introduction是可选参数。
 class ToolParameter(models.Model):
     name = models.CharField(max_length=64,verbose_name='链接名')
     link = models.URLField('友链地址', help_text='请填写http或https开头的完整形式地址')
-    img_link = models.URLField('图片地址', help_text='请填写http或https开头的完整形式地址',null=True)
-    introduction = models.TextField(verbose_name='简介',null=True)
+    img_link = models.URLField('图片地址', help_text='请填写http或https开头的完整形式地址',blank=True)
+    introduction = models.TextField(verbose_name='简介',blank=True)
     tool_name = models.ForeignKey(ToolName, verbose_name='工具分类', on_delete=models.CASCADE)
     class Meta:
         verbose_name = '工具'

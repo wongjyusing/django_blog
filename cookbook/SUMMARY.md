@@ -12,3 +12,6 @@
 * [模板拓展方法](chapter6/templates_ex.md)
 * [写博客项目的技巧](chapter7/skii.md)
 * [通用工具](chapter8/tool.md)
+* [前后端分离](chapter9/README.md)
+  * [书结构应用后端设计](chapter9/section1.md)
+  * [书结构应用前端设计](chapter9/section2.md)

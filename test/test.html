@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8"/>
+    <title>Marked in the browser</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.5.0/marked.js"></script>
+    </head>
+    <body>
+        <div id="content"></div>
+    <script>
+        document.getElementById('content').innerHTML =
+        marked('## 什么是Django？Python的一个web框架。  好了说完了。  与其说Django是什么，不如说成是**Django可以做什么？**  Django可以开发API接口、网站的管理后台、也可以展示前端页面。');
+    </script>
+
+    </body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>首页</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+        <link rel="stylesheet" href="static/css/base.css">
+
+    </head>
+    <body class="site-body">
+    <div id="mysite-data">
+        <header class="site-header">
+            <div class="site-branding">
+                <h1 class="site-title"><a href="/">${ base.name }</a></h1>
+                <div class="site-introduction">${ base.introduction }</div>
+            </div>
+            <nav class="site-navigation">
+                    <ul class="menu">
+                        <li class="nav-active"><a href="/">首页</a></li>
+                        <li ><a href="/blog_list">博客列表</a></li>
+                        <li ><a href="/blog/tag_list/"> 标签</a></li>
+                        <li ><a href="/about/">关于</a></li>
+                    </ul>
+             </nav>
+        </header>
+
+
+
+
+
+    <footer>
+        <div class="diy-card">
+            <p>${ base.powered }</p>
+            <p>${ base.approval_numbers }</p>
+        </div>
+    </footer>
+    </div>
+    <script>
+    <!--基础数据获取-->
+    var baseData = new Vue({
+    delimiters: ['${', '}'],
+      el: '#mysite-data',
+      data () {
+        return {
+
+            blog_tags: '',
+            toolbox:'',
+            base:'',
+
+        }
+      },
+      mounted () {
+        //Vue.prototype.$axios = axios,
+        axios
+          .get('http://127.0.0.1:8000/api/basedata/')
+          .then(response => (this.blog_tags = response.data.blog_tag, this.toolbox = response.data.toolbox,this.base = response.data.mysite[0].fields))
+      }
+    })
+    <!--博客的数据获取-->
+    var blog = new Vue({
+    delimiters: ['${', '}'],
+      el: '#app3',
+      data () {
+        return {
+
+            markdown: '',
+            blog:'',
+            base:''
+        }
+      },
+      mounted () {
+        //Vue.prototype.$axios = axios,
+        axios
+          .get('http://127.0.0.1:8000/api/detail/django-0/')
+          .then(response => (this.blog = response.data, this.markdown = response.data.markdown,this.base = response))
+      }
+    })
+
+
+
+
+    </script>
+
+
+</body>
+
+
+
+
+</html>

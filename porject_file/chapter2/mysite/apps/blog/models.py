@@ -22,8 +22,10 @@ class BlogTag(BlogBase):
         verbose_name = '标签'
         verbose_name_plural = '标签列表'
         ordering = ['id']       # 排序，按id排序
-    # 使对象在后台显示更友善
 
+    # 使对象在后台显示更友善
+    def __str__(self):
+        return self.name
 # 标签
 class BlogType(BlogBase):
     name = models.CharField(max_length=64,verbose_name='类型名')
@@ -33,8 +35,10 @@ class BlogType(BlogBase):
         verbose_name = '标签'
         verbose_name_plural = '标签列表'
         ordering = ['id']       # 排序，按id排序
-    # 使对象在后台显示更友善
 
+    # 使对象在后台显示更友善
+    def __str__(self):
+        return self.name
 
 
 class Blog(BlogBase):
@@ -56,7 +60,7 @@ class Blog(BlogBase):
     blog_tag是多对多关系
 
     区别在于一篇博文只有一个 类型，
-    但可以有多个 标签  
+    但可以有多个 标签
     现在的项目是两种类型同时存在，
     注意，使用多对多关系也就是标签的话，
     返回的内容是一个列表，需要用到for循环方可取出里面的内容
