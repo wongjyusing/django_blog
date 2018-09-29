@@ -12,7 +12,7 @@ wget https://nodejs.org/dist/v8.11.4/node-v8.11.4-linux-x64.tar.xz
 
 sudo tar -xJvf node-v8.11.4-linux-x64.tar.xz -C /usr/local/lib/nodejs
 
-sudo mv /usr/local/lib/nodejs/node-v8.11.4-linux-x64.tar.xz /usr/local/lib/nodejs/node-v8  
+sudo mv /usr/local/lib/nodejs/node-v8.11.4-linux-x64 /usr/local/lib/nodejs/node-v8  
 
 sudo vim ~/.profile
 
